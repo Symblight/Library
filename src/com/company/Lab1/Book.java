@@ -12,6 +12,10 @@ public class Book {
         this.count = count;
     }
 
+    public Book() { // Конструктор, он срабатывает когда так пишем: new Book(0, Woman, 3)
+
+    }
+
     public String getName() { return this.name; } // Get and Set Функции которые возвращают значение или устанавливают новое
 
     public  void setName( String name) { this.name = name; }

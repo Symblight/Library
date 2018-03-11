@@ -6,6 +6,7 @@ package com.company.Lab1;
     * Книга может присутствовать в Библиотеке в одном или нескольких экземплярах.
     */
 
+import javax.xml.parsers.ParserConfigurationException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -19,15 +20,16 @@ public class Library {
 
         BooksList = new ArrayList<>(); // Инициализируем книги
 
-        BooksList.add(new Book(0, "Woman", 3)); // Здесь я заполнил книги
-        BooksList.add(new Book(1, "Piligrim", 1));
-        BooksList.add(new Book(3, "How to make it", 1));
-
         subscription = new Subscription("Nika"); // Инициализируем абонемент
 
         Library lib = new Library(); // Инициализация главного класса
 
+        FileBooks s = new FileBooks();
+
+        BooksList = s.LoadBooks();
+
         lib.Menu(); // Вызов нашего меню
+
     }
 
     public void Menu() {
@@ -143,6 +145,14 @@ public class Library {
                          setBookSub(sb); // Метод в котором отнимаем книгу в абонементе
 
                         System.out.println("Вы взяли книгу: " + BooksList.get(indexBook).getName() + " Осталось " + BooksList.get(indexBook).getCount() + "шт");
+
+                        FileBooks s = new FileBooks();
+
+                        try {
+                            s.saveBooks(BooksList);
+                        } catch (ParserConfigurationException e) {
+                            e.printStackTrace();
+                        }
                         return;
                     } else {
                         System.out.println("Нету в наличии");
@@ -208,6 +218,14 @@ public class Library {
                         booksReader.get(indexSubBook).setCount(booksReader.get(indexSubBook).getCount() - 1 ); // А здеся уменьшаем (абонемент список книг)
 
                         subscription.setBooks(booksReader);  // Заменяем старый список в абонементе новым
+
+                        FileBooks s = new FileBooks();
+
+                        try {
+                            s.saveBooks(BooksList);
+                        } catch (ParserConfigurationException e) {
+                            e.printStackTrace();
+                        }
 
                         System.out.println("Вернули книгу!");
                     } else {
