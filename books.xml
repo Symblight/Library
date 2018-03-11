@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Books>
+    <Book>
+        <Title>Yogasana Vijnana: the Science of Yoga</Title>
+        <Author>Dhirendra Brahmachari</Author>
+        <Count>5</Count>
+    </Book>
+    <Book>
+        <Title>The First and Last Freedom</Title>
+        <Author>J. Krishnamurti</Author>
+        <Count>4</Count>
+    </Book>
+    <Book>
+        <Title>Woman</Title>
+        <Author>Bukoffsky</Author>
+        <Count>6</Count>
+    </Book>
+    <Book>
+        <Title>Liberty</Title>
+        <Author>Freeman</Author>
+        <Count>4</Count>
+    </Book>
+</Books>
