@@ -264,6 +264,14 @@ public class Library {
                             e.printStackTrace();
                         }
 
+                        FileSubscription fs = new FileSubscription();
+
+                        try {
+                            fs.saveSub(SubscriptionList);
+                        } catch (ParserConfigurationException e) {
+                            e.printStackTrace();
+                        }
+
                         System.out.println("Вернули книгу!");
                     } else {
                         System.out.println("Отсутствует книга!");
