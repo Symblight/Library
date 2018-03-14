@@ -21,7 +21,7 @@ import org.xml.sax.SAXException;
 public class FileBooks {
 
    public List<Book> LoadBooks() {
-       List<Book> BooksList = new ArrayList<>();;
+       List<Book> BooksList = new ArrayList<>();
        // Создается построитель документа
        DocumentBuilder documentBuilder = null;
        try {

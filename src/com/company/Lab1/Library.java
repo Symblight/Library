@@ -13,26 +13,43 @@ import java.util.Scanner;
 
 public class Library {
 
+    private static List<Subscription> SubscriptionList;
     private static List<Book> BooksList; // Создаем экземпляр книг библиотеки (List - Массив только в нем можно хранить классы грубо говоря)
-    private static Subscription subscription; // Создаем экземпляр абонемента
+    private static Subscription currentSubscription; // Создаем экземпляр абонемента
 
     public static void main(String[] args) { // Главный класс, отсюда стартуем
 
         BooksList = new ArrayList<>(); // Инициализируем книги
 
-        subscription = new Subscription("Nika"); // Инициализируем абонемент
-
-        Library lib = new Library(); // Инициализация главного класса
-
         FileBooks s = new FileBooks();
-
         BooksList = s.LoadBooks();
 
-        lib.Menu(); // Вызов нашего меню
+        SubscriptionList = new ArrayList<>();;
+
+        FileSubscription fs = new FileSubscription();
+        SubscriptionList = fs.LoadSub();
+
+        Library lib = new Library();// Инициализация главного класса
+        lib.MainMenu(); // Вызов нашего меню
 
     }
 
-    public void Menu() {
+    public void MainMenu() {
+        while(true) {
+            System.out.println("================ Библиотека! ================" +
+                    "\n Введите имя читателя "
+            );
+            Scanner in = new Scanner(System.in);
+
+            String nameReader = in.nextLine();
+
+            if(searchReader(nameReader)){
+                MenuReader();
+            }
+        }
+    }
+
+    public void MenuReader() {
         while(true) { // Создаем главный цикл чтобы постоянно быть в меню, как только в этом цикле мы напишем return (то же самое что и false) мы выходим из этого цикла и программа закрывается
             System.out.println("================ Библиотека! ================" +
                     "\nВыберете цифру: \n1. Поиск \n2. Заказ \n3. Абонемент \n4. Сдать книгу \n0. Выйти \nРешение:"
@@ -50,7 +67,7 @@ public class Library {
                     break;
                 }
                 case 3: {
-                    subscription.checkSubscription(); // Вызываем метод поиска книги
+                    currentSubscription.checkSubscription(); // Вызываем метод поиска книги
                     break;
                 }
                 case  4: {
@@ -62,6 +79,18 @@ public class Library {
                 }
             }
         }
+    }
+
+    public Boolean searchReader(String name) {
+
+        for(int i = 0; i < SubscriptionList.size(); i++) {
+            if(SubscriptionList.get(i).getFirstName().equals(name)) {
+
+                currentSubscription = SubscriptionList.get(i);
+                return true;
+            }
+        }
+        return false;
     }
 
     public void searchBook() {
@@ -170,7 +199,7 @@ public class Library {
 
     public void setBookSub(Book book) {
         List<Book> subBooks; // Создаем новый, пустой список книг
-        subBooks = subscription.getBooks(); // Копируем из абонемента список используемых книг
+        subBooks = currentSubscription.getBooks(); // Копируем из абонемента список используемых книг
 
         int findBook = -1;
 
@@ -187,7 +216,15 @@ public class Library {
             subBooks.add(newBook);
         }
 
-        subscription.setBooks(subBooks); // Заменяем старый список в абонементе новым
+        currentSubscription.setBooks(subBooks); // Заменяем старый список в абонементе новым
+
+        FileSubscription fs = new FileSubscription();
+
+        try {
+            fs.saveSub(SubscriptionList);
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        }
     }
 
     public void returnBook() {
@@ -202,7 +239,7 @@ public class Library {
                     return;
                 }
                 default: {
-                    List<Book> booksReader = subscription.getBooks(); // Копируем список книг абонемента чтоб уменьшить быдло-код наш любимый
+                    List<Book> booksReader = currentSubscription.getBooks(); // Копируем список книг абонемента чтоб уменьшить быдло-код наш любимый
                     int indexSubBook = -1;
                     for(int i = 0; i < booksReader.size(); i++) { // По старой схеме ищем индекс
                         if(nameBook.equals(booksReader.get(i).getName())) {
@@ -217,7 +254,7 @@ public class Library {
                         BooksList.get(index).setCount(BooksList.get(index).getCount() + 1); // В Библиотеке увеличиваем книгу к которому обратились по найденному индексу
                         booksReader.get(indexSubBook).setCount(booksReader.get(indexSubBook).getCount() - 1 ); // А здеся уменьшаем (абонемент список книг)
 
-                        subscription.setBooks(booksReader);  // Заменяем старый список в абонементе новым
+                        currentSubscription.setBooks(booksReader);  // Заменяем старый список в абонементе новым
 
                         FileBooks s = new FileBooks();
 

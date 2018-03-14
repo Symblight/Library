@@ -31,6 +31,9 @@ public class Subscription {
         this.firstName = firstName;
     }
 
+    public Subscription() {
+    }
+
     public String getFirstName() { return this.firstName; } //Get and Set Функции которые возвращают значение или устанавливают новое
 
     public void setFirstName( String firstName) { this.firstName = firstName; }
