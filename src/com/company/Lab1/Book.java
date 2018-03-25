@@ -6,9 +6,8 @@ public class Book {
     private String name;
     private int count;
 
-    public Book(int id, String name, int count) { // Конструктор, он срабатывает когда так пишем: new Book(0, Woman, 3)
+    public Book(String name, int count) { // Конструктор, он срабатывает когда так пишем: new Book(0, Woman, 3)
         this.name = name;
-        this.id = id;
         this.count = count;
     }
 

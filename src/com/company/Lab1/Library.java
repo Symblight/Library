@@ -6,7 +6,6 @@ package com.company.Lab1;
     * Книга может присутствовать в Библиотеке в одном или нескольких экземплярах.
     */
 
-import javax.xml.parsers.ParserConfigurationException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -21,13 +20,17 @@ public class Library {
 
         BooksList = new ArrayList<>(); // Инициализируем книги
 
-        FileBooks s = new FileBooks();
-        BooksList = s.LoadBooks();
+        BooksList.add( new Book("Woman", 6));
+        BooksList.add( new Book("Происхождение", 5));
+        BooksList.add( new Book("Когда я вернусь, будь дома", 4));
+        BooksList.add( new Book("451 градус по Фаренгейту", 2));
+        BooksList.add( new Book("Оно", 12));
 
-        SubscriptionList = new ArrayList<>();;
+        SubscriptionList = new ArrayList<>();
 
-        FileSubscription fs = new FileSubscription();
-        SubscriptionList = fs.LoadSub();
+        SubscriptionList.add(new Subscription("Nika"));
+        SubscriptionList.add(new Subscription("Alexey"));
+        SubscriptionList.add(new Subscription("Vasya"));
 
         Library lib = new Library();// Инициализация главного класса
         lib.MainMenu(); // Вызов нашего меню
@@ -175,13 +178,6 @@ public class Library {
 
                         System.out.println("Вы взяли книгу: " + BooksList.get(indexBook).getName() + " Осталось " + BooksList.get(indexBook).getCount() + "шт");
 
-                        FileBooks s = new FileBooks();
-
-                        try {
-                            s.saveBooks(BooksList);
-                        } catch (ParserConfigurationException e) {
-                            e.printStackTrace();
-                        }
                         return;
                     } else {
                         System.out.println("Нету в наличии");
@@ -212,19 +208,11 @@ public class Library {
         if(findBook > -1) {
             subBooks.get(findBook).setCount(subBooks.get(findBook).getCount() + 1); // Находим книгу в абонементе и увеличиваем на один
         } else {
-            Book newBook = new Book(book.getId(), book.getName(), 1); // Создаем экземпляр новой книги и кидаем в список который отправится в абонемент
+            Book newBook = new Book(book.getName(), 1); // Создаем экземпляр новой книги и кидаем в список который отправится в абонемент
             subBooks.add(newBook);
         }
 
         currentSubscription.setBooks(subBooks); // Заменяем старый список в абонементе новым
-
-        FileSubscription fs = new FileSubscription();
-
-        try {
-            fs.saveSub(SubscriptionList);
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        }
     }
 
     public void returnBook() {
@@ -256,21 +244,6 @@ public class Library {
 
                         currentSubscription.setBooks(booksReader);  // Заменяем старый список в абонементе новым
 
-                        FileBooks s = new FileBooks();
-
-                        try {
-                            s.saveBooks(BooksList);
-                        } catch (ParserConfigurationException e) {
-                            e.printStackTrace();
-                        }
-
-                        FileSubscription fs = new FileSubscription();
-
-                        try {
-                            fs.saveSub(SubscriptionList);
-                        } catch (ParserConfigurationException e) {
-                            e.printStackTrace();
-                        }
 
                         System.out.println("Вернули книгу!");
                     } else {
