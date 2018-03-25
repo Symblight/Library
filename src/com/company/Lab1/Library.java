@@ -31,6 +31,7 @@ public class Library {
         SubscriptionList.add(new Subscription("Nika"));
         SubscriptionList.add(new Subscription("Alexey"));
         SubscriptionList.add(new Subscription("Vasya"));
+        SubscriptionList.add(new Subscription("Ignat"));
 
         Library lib = new Library();// Инициализация главного класса
         lib.MainMenu(); // Вызов нашего меню

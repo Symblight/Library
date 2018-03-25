@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4034e883-a70a-4aca-b82b-40b109d97087" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/books.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/company/Lab1.rar1" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/company/Lab1/FileBooks.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/company/Lab1/FileSubscription.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/subscription.xml" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/company/Lab1/Book.java" afterPath="$PROJECT_DIR$/src/com/company/Lab1/Book.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/company/Lab1/Library.java" afterPath="$PROJECT_DIR$/src/com/company/Lab1/Library.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -28,11 +22,21 @@
       <file leaf-file-name="Library.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/company/Lab1/Library.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="544">
-              <caret line="46" column="46" lean-forward="true" selection-start-line="46" selection-start-column="46" selection-end-line="46" selection-end-column="46" />
+            <state relative-caret-position="340">
+              <caret line="34" column="0" lean-forward="true" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Debtors.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/company/Lab1/Debtors.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="85">
+              <caret line="5" column="20" lean-forward="false" selection-start-line="5" selection-start-column="20" selection-end-line="5" selection-end-column="20" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -591,12 +595,12 @@
       <workItem from="1521018487295" duration="797000" />
       <workItem from="1521532481363" duration="243000" />
       <workItem from="1521618852998" duration="622000" />
-      <workItem from="1521986382745" duration="419000" />
+      <workItem from="1521986382745" duration="1542000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="52260000" />
+    <option name="totallyTimeSpent" value="53383000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1912" y="66" width="1936" height="1096" extended-state="6" />
@@ -650,14 +654,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/company/Lab1/FileBooks.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1003">
-          <caret line="75" column="25" lean-forward="false" selection-start-line="75" selection-start-column="25" selection-end-line="75" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/subscription.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1047,10 +1043,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/company/Lab1/Debtors.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="20" lean-forward="false" selection-start-line="5" selection-start-column="20" selection-end-line="5" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/company/Lab1/Library.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="46" column="46" lean-forward="true" selection-start-line="46" selection-start-column="46" selection-end-line="46" selection-end-column="46" />
+        <state relative-caret-position="340">
+          <caret line="34" column="0" lean-forward="true" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
