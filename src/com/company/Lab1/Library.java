@@ -20,7 +20,7 @@ public class Library {
 
         BooksList = new ArrayList<>(); // Инициализируем книги
 
-        BooksList.add( new Book("Woman", 6));
+        BooksList.add( new Book("Woman", 1));
         BooksList.add( new Book("Происхождение", 5));
         BooksList.add( new Book("Когда я вернусь, будь дома", 4));
         BooksList.add( new Book("451 градус по Фаренгейту", 2));
@@ -40,9 +40,10 @@ public class Library {
 
     public void MainMenu() {
         while(true) {
-            System.out.println("================ Библиотека! ================" +
-                    "\n Введите имя читателя "
-            );
+            System.out.println("================ Библиотека! ================");
+            ListSubs(); // Вывод читателей
+
+            System.out.print( "Введите имя читателя: ");
             Scanner in = new Scanner(System.in);
 
             String nameReader = in.nextLine();
@@ -56,7 +57,7 @@ public class Library {
     public void MenuReader() {
         while(true) { // Создаем главный цикл чтобы постоянно быть в меню, как только в этом цикле мы напишем return (то же самое что и false) мы выходим из этого цикла и программа закрывается
             System.out.println("================ Библиотека! ================" +
-                    "\nВыберете цифру: \n1. Поиск \n2. Заказ \n3. Абонемент \n4. Сдать книгу \n0. Выйти \nРешение:"
+                    "\nВыберете цифру: \n1. Каталог \n2. Заказ \n3. Абонемент \n4. Сдать книгу \n0. Выйти \nРешение:"
             );
             Scanner in = new Scanner(System.in); // Сканнер отвечает за ввод в консоль
 
@@ -85,6 +86,13 @@ public class Library {
         }
     }
 
+    public void ListSubs() {
+        System.out.println("====== Читетели ======");
+        for(int i = 0; i < SubscriptionList.size(); i++) {
+            System.out.print("Имя: "+SubscriptionList.get(i).getFirstName() + "\n");
+        }
+    }
+
     public Boolean searchReader(String name) {
 
         for(int i = 0; i < SubscriptionList.size(); i++) {
@@ -98,54 +106,52 @@ public class Library {
     }
 
     public void searchBook() {
-        while(true) {
-            Scanner in = new Scanner(System.in);
-
-            System.out.println("\nПоиск! Для выхода - введите 0 \nНапишите название книги:");
-            String nameBook = in.nextLine(); // Пишем в консоль
-
-            switch (nameBook) {
-                case "0": {
-                    return; // Если ввели 0 то мы выходим из данного цикла, но не забывай что мы все еще находимся в главном цикле где отображается главное меню
-                }
-                default: {
-                    Catalog ct = new Catalog();
-                    int index =  ct.search(nameBook, BooksList); // Получаем индекс книги, для этого закидываем название книги в функцию
-
-                   if(index > -1) {
-                       System.out.println("Найденно! \nid:" + BooksList.get(index).getId() + "\nНазвание " + BooksList.get(index).getName() + "\nКоличество: " + BooksList.get(index).getCount());
-                       return;
-                   } else {
-                       System.out.println("Не найдено!");
-                   }
-                }
-            }
-        }
+        Catalog ctg = new Catalog();
+        ctg.catalogBooks(BooksList);
     }
 
     public void makeOrder() {
         while(true) {
             Scanner in = new Scanner(System.in);
 
-            Catalog ctg = new Catalog();
-
-            ctg.catalogBooks(BooksList);
-
-            System.out.println("\nЗаказ \nНазвание книги: ");
+            System.out.println("====== Заказ ====== \nДля выхода - введите 0\nНазвание книги: ");
 
             String nameBook = in.nextLine(); // Пишем в консоль
 
             switch (nameBook) {
+                case "0": {
+                    return;
+                }
                 default: {
                     Catalog ct = new Catalog();
                     int index =  ct.search(nameBook, BooksList); // Получаем индекс книги, для этого закидываем название книги в функцию
 
                     if(index > -1) {
-                        System.out.println("Найденно! \nid:" + BooksList.get(index).getId() +
-                                "\nНазвание" + BooksList.get(index).getName() +
+                        System.out.println("Найденно! \n" +
+                                "\nНазвание: " + BooksList.get(index).getName() +
                                 "\nКоличество: " +
                                 BooksList.get(index).getCount()
                         );
+
+                        Debtor dbs = new Debtor(currentSubscription);
+
+                        if(dbs.getDebtor()) {
+                            System.out.println("~~~Вы должны книгу!~~~");
+                        }
+
+                        if(BooksList.get(index).getCount()== 1) {
+                            System.out.println("Осталась одна 1шт!");
+                            return;
+                        }
+
+                        List<Book> subBooks; // Создаем новый, пустой список книг
+                        subBooks = currentSubscription.getBooks(); // Копируем из абонемента список используемых книг
+
+                        int indexSubBook =  ct.search(nameBook, subBooks); // ищем индекс книги в списке книг абонемента
+                        if(indexSubBook>-1) {
+                            System.out.println("Данная книга уже взята!");
+                            return;
+                        }
 
                         menuOrder(index); // Вызываем меню заказа
                         return;
@@ -160,7 +166,7 @@ public class Library {
 
     public void menuOrder(int indexBook) { // Меню заказа и аргумент данного метода будет индекс выбранной книги
         while (true) {
-            System.out.println("\n Взять? \n 1 - Да\n 2 - Нет");
+            System.out.println("Взять? \n 1 - Да\n 2 - Нет");
             Scanner in = new Scanner(System.in);
             int select = in.nextInt(); // пишем цифру
 
@@ -171,13 +177,11 @@ public class Library {
 
                         int countRes = BooksList.get(indexBook).getCount() - 1; // Уменьшаем
 
-                        System.out.println(countRes);
-
                         BooksList.get(indexBook).setCount(countRes); // Устанавливаем новое количество книг
 
-                         setBookSub(sb); // Метод в котором отнимаем книгу в абонементе
+                        setBookSub(sb); // Метод в котором отнимаем книгу в абонементе
 
-                        System.out.println("Вы взяли книгу: " + BooksList.get(indexBook).getName() + " Осталось " + BooksList.get(indexBook).getCount() + "шт");
+                        System.out.println("Вы взяли книгу: " + BooksList.get(indexBook).getName() + " \nОсталось " + BooksList.get(indexBook).getCount() + "шт");
 
                         return;
                     } else {
@@ -198,6 +202,12 @@ public class Library {
         List<Book> subBooks; // Создаем новый, пустой список книг
         subBooks = currentSubscription.getBooks(); // Копируем из абонемента список используемых книг
 
+        Scanner inBook = new Scanner(System.in);
+
+        System.out.println("Срок [день.месяц.год]: ");
+
+        String dateBook = inBook.nextLine();
+
         int findBook = -1;
 
         for(int i = 0; i < subBooks.size(); i++) {
@@ -207,9 +217,10 @@ public class Library {
         }
 
         if(findBook > -1) {
-            subBooks.get(findBook).setCount(subBooks.get(findBook).getCount() + 1); // Находим книгу в абонементе и увеличиваем на один
+            subBooks.get(findBook).setCount(subBooks.get(findBook).getCount() + 1);// Находим книгу в абонементе и увеличиваем на один
         } else {
             Book newBook = new Book(book.getName(), 1); // Создаем экземпляр новой книги и кидаем в список который отправится в абонемент
+            newBook.setTime(dateBook); // устанавливаем время
             subBooks.add(newBook);
         }
 
@@ -220,7 +231,7 @@ public class Library {
         while(true) {
             Scanner in = new Scanner(System.in);
 
-            System.out.println("\nПоиск! Для выхода - введите 0 \nНапишите название книги:");
+            System.out.print("==== Сдача книги! ===== \nДля выхода - введите 0 \nНапишите название книги:");
             String nameBook = in.nextLine();
 
             switch (nameBook) {
@@ -241,10 +252,10 @@ public class Library {
                         int index =  ct.search(nameBook, BooksList);
 
                         BooksList.get(index).setCount(BooksList.get(index).getCount() + 1); // В Библиотеке увеличиваем книгу к которому обратились по найденному индексу
-                        booksReader.get(indexSubBook).setCount(booksReader.get(indexSubBook).getCount() - 1 ); // А здеся уменьшаем (абонемент список книг)
+
+                        booksReader.remove(indexSubBook); // А здеся удаляем (абонемент список книг)
 
                         currentSubscription.setBooks(booksReader);  // Заменяем старый список в абонементе новым
-
 
                         System.out.println("Вернули книгу!");
                     } else {

@@ -20,7 +20,7 @@ public class Subscription {
             );
 
             for (int i = 0; i < books.size(); i++) {
-                System.out.println("Название: " + books.get(i).getName() + "\nКоличество: " + books.get(i).getCount() + "\n");
+                System.out.println("Название: " + books.get(i).getName() + "\nСрок " + books.get(i).getTime());
             }
 
             return;
