@@ -137,6 +137,7 @@ public class Library {
 
                         if(dbs.getDebtor()) {
                             System.out.println("~~~Вы должны книгу!~~~");
+                            return;
                         }
 
                         if(BooksList.get(index).getCount()== 1) {
